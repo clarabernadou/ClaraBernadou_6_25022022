@@ -10,6 +10,7 @@ router.post('/', stuffCtrl.createThing);
 router.get('/:id', stuffCtrl.getOneThing);
 router.put('/:id', stuffCtrl.modifyThing);
 router.delete('/:id', stuffCtrl.deleteThing);
+router.post('/:id/like', stuffCtrl.likeOrNot)
 
 //EXPORT THE MODULE
 module.exports = router;
