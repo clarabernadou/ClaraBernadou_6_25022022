@@ -18,12 +18,9 @@ const stuffRoutes = require('./routes/stuff');
 const userRoutes = require('./routes/auth');
 
 //CONNECT TO MONGOOSE
-mongoose.connect(
-process.env.SECRET_DB,
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+mongoose.connect(`mongodb+srv://PiiquanteAdmin:Admin123@piiquante.chceo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+    .then(() => console.log('Connection to MongoDB successful'))
+    .catch(() => console.log('Connection to MongoDB failed'))
 
 //CALL EXPRESS
 const app = express();

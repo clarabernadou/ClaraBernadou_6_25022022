@@ -39,27 +39,23 @@ Thing.findOne({ _id: req.params.id })
 
 //MODIFY THE SAUCE
 exports.modifyThing = (req, res, next) => {
-const thing = req.file ? {
+const thing = req.file ? 
+{
   ...JSON.parse(req.body.sauce),
   imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  } 
-  : { ...req.body }
 
-  };
+} : { ...req.body }
 //SAVE THE MODIFICATIONS
 Thing.updateOne(
   { _id: req.params.id }, { ...thing, _id: req.params.id })
 .then(
-    () => {
-      res.status(201).json({ message: 'Thing updated successfully!' });
-    }
+  () => 
+    res.status(201).json({ message: 'Thing updated successfully!' })
 //IF ELSE
 ).catch(
-    (error) => { 
-      res.status(400).json({ error: error });
-    }
-  );
-
+  error => 
+    res.status(400).json({ error: error }))
+}
 //DELETE THE SAUCE
 exports.deleteThing = (req, res, next) => {
 Thing.findOne({_id: req.params.id})
@@ -67,15 +63,18 @@ Thing.findOne({_id: req.params.id})
     const filename = thing.imageUrl.split('/images/')[1]
     fs.unlink(`images/${filename}`, () => {
       thing.deleteOne({ _id: req.params.id })
-      .then(() => res.status(200).json({ message: 'SAUCE DELETED !' }))
+      .then(
+        () => res.status(200).json({ message: 'SAUCE DELETED !' }))
       .catch(
         error => 
-        res.status(400).json({ error: error }))
+          res.status(400).json({ error: error }))
       })
     }
 
 //IF ELSE
-).catch(error => res.status(500).json({ error }))
+).catch(
+  error => 
+    res.status(500).json({ error }))
 }
 
 //FIND A LIST OF SAUCES
@@ -93,7 +92,7 @@ exports.getAllStuff = (req, res, next) => {
 );
 };
 
-//LIKE OR DISLIKE A SAUCE
+//LIKE OR DISLIKE
 exports.likeOrNot = (req, res, next) => {
   if (req.body.like === 1) {
       Thing.updateOne({ _id: req.params.id }, { $inc: { likes: req.body.like++ }, $push: { usersLiked: req.body.userId } })
