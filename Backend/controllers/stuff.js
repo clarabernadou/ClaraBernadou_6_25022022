@@ -9,7 +9,7 @@ exports.createThing = (req, res, next) => {
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
 });
 
-//SAVE THE SAUCE
+//SAVE A SAUCE
 thing.save().then(
     () => {
       res.status(201).json({ message: 'Post saved successfully!' });
